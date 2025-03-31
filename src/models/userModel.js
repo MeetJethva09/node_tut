@@ -7,11 +7,29 @@ const userSchema = new Schema({
     lastName : {
         type : String
     },
+    email : {
+        type : String
+    },
+    password:{
+        type:String
+    },
+    gender : {
+        type : String,
+        enum : ["Male" , "Female"]
+    },
     age : {
         type : Number
     },
-    status : {
-        type : Boolean
+    contact : {
+        type : Number,
     },
-})
+    status : {
+        type : Boolean,
+        default : true
+    },
+    role : {
+        type : Schema.Types.ObjectId,
+        ref : "roles"
+    }
+},{timestamps : true})
 module.exports = mongoose.model("user" , userSchema);
