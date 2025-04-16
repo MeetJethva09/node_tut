@@ -9,6 +9,8 @@ const cityRouter = require("./src/routes/cityRouter")
 const areaRouter = require("./src/routes/areaRouter")
 const restRouter = require("./src/routes/restRouter")
 const addOfferRouter = require("./src/routes/addOfferRouter")
+const claimedOffer = require("./src/routes/claimedOfferRouter")
+const ratingRouter = require("./src/routes/ratingRouter")
 const PORT = 3000;
 
 
@@ -30,6 +32,8 @@ app.use( "/city" ,cityRouter)
 app.use("/area" , areaRouter)
 app.use(addOfferRouter);
 app.use("/rest" , restRouter)
+app.use("/claimoffer" , claimedOffer)
+app.use("/rating" , ratingRouter)
 
 app.listen(PORT , ()=>{
     console.log(`server is running on port http://localhost:${PORT}`);

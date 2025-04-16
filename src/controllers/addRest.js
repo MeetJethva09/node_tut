@@ -36,7 +36,7 @@ const getRestById = async (req,res)=>{
 
 const getAllRest = async (req,res)=>{
     try{
-        const allRest = await restModel.find();
+        const allRest = await restModel.find().populate("city area ownerId")
         res.status(200).json({
             message : "All restaurants found successfully..",
             data : allRest
@@ -63,7 +63,7 @@ const deleteRestById = async (req,res)=>{
     {
         res.status(404).json({
             message : "Restaurant not found..",
-        })                      
+        })                       
     }
 }
 

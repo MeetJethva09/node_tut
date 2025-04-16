@@ -16,6 +16,10 @@ const addOfferSchema = new Schema({
         type : String,
         required: true
     },
+    restaurant : {
+        type : Schema.Types.ObjectId,
+        ref : 'rest',
+    },
     offerStart : {
         type : Date,
         required : true

@@ -136,6 +136,28 @@ const getUserOnlyUser = async (req,res)=>{
             })
         }
 }
+
+const resetPassword = async (req,res)=>{
+            try{
+                const verifyUserFromToken = jwt.verify(req.body.token , secretKey);  //Verify user
+
+                const newHashedPassword = bcrypt.hashSync(req.body.newpassword , 10);   //Hashed new password
+                
+                const updateTheUser = await userModel.findByIdAndUpdate(verifyUserFromToken._id , {password : newHashedPassword})  //Update the password
+
+                res.status(200).json({
+                    message : "Password Changed Successfully",
+                    data : verifyUserFromToken
+                })
+            }
+        catch(err)
+        {
+            res.status(500).json({
+                message : "error occured , token not valid!!!",
+                data : err
+            })
+        }
+}
 module.exports = {
     addUser,
     getUser,
@@ -144,5 +166,6 @@ module.exports = {
     userSignup,
     userLogin,
     forgotPass,
-    getUserOnlyUser 
+    getUserOnlyUser ,
+    resetPassword
 }

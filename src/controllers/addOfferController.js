@@ -66,7 +66,7 @@ const addOffer = async (req,res)=>{
 const getOfferByUserId = async (req,res) =>{
     try{
 
-        const getOfferById = await addOfferModel.find({userId : req.params.uid});
+        const getOfferById = await addOfferModel.find({userId : req.params.uid}).populate("restaurant")
         res.status(200).json({
             message : "Offers fetched successfull",
             data : getOfferById
@@ -82,7 +82,7 @@ const getOfferByUserId = async (req,res) =>{
 
 const getAllOffers = async (req,res)=>{
     try{
-            const allOffers = await addOfferModel.find()
+            const allOffers = await addOfferModel.find().populate("restaurant")
             res.status(200).json({
                 message : "All offers fetched successfully",
                 data : allOffers
@@ -97,8 +97,62 @@ const getAllOffers = async (req,res)=>{
     }
 }
 
+const getOfferByOfferId = async (req,res) =>{
+    try{
+        const offerByOfferId = await addOfferModel.findOne({_id : req.params.id}).populate("restaurant")
+        res.status(200).json({
+            message : "Offer fetched successfully",
+            data : offerByOfferId
+        })
+    }
+    catch(err)
+    {
+        res.status(404).json({
+            message : "Offer not found!!",
+            data : err
+        })
+    }
+}
+
+const deleteOfferById = async (req,res) =>{
+    try{
+        const deleteOffer = await addOfferModel.findByIdAndDelete(req.params.id);
+        res.status(200).json({
+            message : "Offer deleted successfully",
+            data : deleteOffer
+        })
+    }
+    catch(err)
+    {
+        res.status(404).json({
+            message : "Offer not found!!",
+            data : err
+        })
+    }
+}
+
+const updateOfferById = async (req,res) =>{
+    try{    
+            const updatedoffer = await addOfferModel.findByIdAndUpdate(req.params.id , req.body , {new : true}) 
+            res.status(200).json({
+                message : "Offer updated successfully",
+                data : updatedoffer
+            })
+    }catch(err)
+    {
+        res.status(400).json({
+            message : "Offer not found!!",
+            data : err
+        })
+    }
+}
+
+
 module.exports = {
     addOffer,
     getOfferByUserId,
-    getAllOffers
+    getAllOffers,
+    getOfferByOfferId,
+    deleteOfferById,
+    updateOfferById
 }
