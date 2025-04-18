@@ -9,19 +9,22 @@ const claimedOfferSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : "addoffer"
     },
-    offerName : {
+    offerTitle : {
         type : String
     },
     offerDesc :{
         type : String
     },
-    offerValid : {
+    offerStart : {
+        type : String,
+    },
+    offerEnd : {
         type : String
     },
     offerImage : {
         type : String
     },
-    foodtype : {
+    foodType : {
         type : String
     }
 },{timestamps : true})
