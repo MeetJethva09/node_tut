@@ -40,8 +40,17 @@ const getAllRatings = async (req,res) =>{
     })
 }
 
+const deleteReview = async (req , res) =>{
+    const deleteReviwed = await ratingModel.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+        message : "Rating deleted",
+        data : deleteReviwed
+    })
+}
+
 module.exports = {
     addRating,
     getAllRatingsByOwnerId,
     getAllRatings,
+    deleteReview
 }
